@@ -8,6 +8,9 @@ const errorMessages = {
   createUser: 'Пользователь уже существует',
   updateUser: 'Такая почта уже существует',
   auth: 'Необходима авторизоваться',
+  correctEmail: 'Неправильный формат почты',
+  correctData: 'Неправильные почта или пароль',
+  correctInfo: 'Некорректный формат данных',
 };
 
 const allowedCors = [
@@ -20,4 +23,6 @@ const allowedCors = [
   'https://api.project.movies.nomoredomains.icu',
 ];
 
-module.exports = { errorMessages, allowedCors };
+const dataBase = 'mongodb://localhost:27017/moviesdb';
+
+module.exports = { errorMessages, allowedCors, dataBase };

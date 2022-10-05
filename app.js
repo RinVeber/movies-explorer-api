@@ -6,8 +6,9 @@ const { errors } = require('celebrate');
 const { errorMessages } = require('./utils/constants');
 
 require('dotenv').config();
+const { dataBase } = require('./utils/constants');
 
-const { PORT = 3002, DATABASE = 'mongodb://localhost:27017/moviesdb' } = process.env;
+const { PORT = 3002 } = process.env;
 const app = express();
 
 const router = require('./routes/authorization');
@@ -18,7 +19,7 @@ const limiter = require('./middlewares/limiter');
 
 app.use(cors);
 
-mongoose.connect(DATABASE, {
+mongoose.connect(dataBase, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   autoIndex: true,
