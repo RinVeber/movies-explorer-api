@@ -14,6 +14,7 @@ const errorMessages = {
   noCorrectPuth: 'Некорректный путь',
   errorValid: 'Ошибка валидации',
   serverError: 'На сервере произошла ошибка',
+  errorUserEmail: 'Пользователь с таким email уже существует',
 };
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';

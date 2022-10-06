@@ -17,29 +17,22 @@ module.exports.createUser = (req, res, next) => {
     password: hash,
   });
 
-  const findOne = (hash) => User.findOne({ email }).then((user) => ({ user, hash }));
-
   bcrypt
     .hash(password, 10)
-    .then(findOne)
-    .then(({ user, hash }) => {
-      if (user) {
-        throw new ConflictError(errorMessages.createUser);
-      }
-      return createUser(hash);
-    })
+    .then((hash) => createUser(hash))
     .then((user) => {
-      const { _id } = user;
-      res.send({
-        _id,
-        name,
-        email,
-      });
+      const newUser = user.toObject();
+      delete newUser.password;
+      res.send(newUser);
     })
     .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new CastError(errorMessages.correctData));
+      }
       if (err.code === 11000) {
-        next(new ConflictError(errorMessages.createUser));
-      } else next(err);
+        return next(new ConflictError(errorMessages.errorUserEmail));
+      }
+      return next(err);
     });
 };
 
