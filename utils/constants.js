@@ -11,18 +11,11 @@ const errorMessages = {
   correctEmail: 'Неправильный формат почты',
   correctData: 'Неправильные почта или пароль',
   correctInfo: 'Некорректный формат данных',
+  noCorrectPuth: 'Некорректный путь',
+  errorValid: 'Ошибка валидации',
+  serverError: 'На сервере произошла ошибка',
 };
 
-const allowedCors = [
-  'https://praktikum.tk',
-  'http://praktikum.tk',
-  'localhost:3000',
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  'https://project.movies.nomoredomains.icu',
-  'https://api.project.movies.nomoredomains.icu',
-];
+const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
-const dataBase = 'mongodb://localhost:27017/moviesdb';
-
-module.exports = { errorMessages, allowedCors, dataBase };
+module.exports = { errorMessages, DEFAULT_ALLOWED_METHODS };

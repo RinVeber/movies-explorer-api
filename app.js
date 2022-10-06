@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -5,10 +6,9 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { errorMessages } = require('./utils/constants');
 
-require('dotenv').config();
-const { dataBase } = require('./utils/constants');
+const { dataBase } = require('./utils/configConstants');
 
-const { PORT = 3002 } = process.env;
+const { PORT = 3002, BASE_URL, NODE_ENV } = process.env;
 const app = express();
 
 const router = require('./routes/authorization');
@@ -17,13 +17,13 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorsHandler');
 const limiter = require('./middlewares/limiter');
 
-app.use(cors);
-
-mongoose.connect(dataBase, {
+mongoose.connect(NODE_ENV === 'production' ? BASE_URL : dataBase, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   autoIndex: true,
 });
+
+app.use(cors);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

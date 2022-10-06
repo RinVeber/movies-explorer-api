@@ -1,9 +1,10 @@
 const validator = require('validator');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
+const { errorMessages } = require('../utils/constants');
 
 const urlValidation = (value) => {
   if (!validator.isURL(value)) {
-    throw new CelebrateError('Ошибка валидации');
+    throw new CelebrateError(errorMessages.errorValid);
   }
   return value;
 };
@@ -38,15 +39,15 @@ const validateUpdateUser = celebrate({
 
 const validateMovie = celebrate({
   body: Joi.object().keys({
-    country: Joi.string().required().min(2).max(30),
-    director: Joi.string().required().min(2).max(30),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
     duration: Joi.number().required(),
-    year: Joi.string().required().min(2).max(30),
-    description: Joi.string().required().min(1).max(5000),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
     image: Joi.string().required().custom(urlValidation),
-    trailer: Joi.string().required().custom(urlValidation),
-    nameRU: Joi.string().required().min(1).max(100),
-    nameEN: Joi.string().required().min(1).max(100),
+    trailerLink: Joi.string().required().custom(urlValidation),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
     thumbnail: Joi.string().required().custom(urlValidation),
     movieId: Joi.number().required(),
   }),
