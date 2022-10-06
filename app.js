@@ -8,7 +8,7 @@ const { errorMessages } = require('./utils/constants');
 
 const { dataBase } = require('./utils/configConstants');
 
-const { PORT = 3002, BASE_URL, NODE_ENV } = process.env;
+const { PORT = 3002, MONGO, NODE_ENV } = process.env;
 const app = express();
 
 const router = require('./routes/authorization');
@@ -17,7 +17,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorsHandler');
 const limiter = require('./middlewares/limiter');
 
-mongoose.connect(NODE_ENV === 'production' ? BASE_URL : dataBase, {
+mongoose.connect(NODE_ENV === 'production' ? MONGO : dataBase, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   autoIndex: true,
